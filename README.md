@@ -81,9 +81,8 @@ Profile 'personal' is now active.
 
 
 $ ls -als ~ | grep $HOME/.profilerz.d
-   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .aws -> /home/user/.profilerz.d/personal/aws
-   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .gitconfig -> /home/user/.profilerz.d/personal/git
-   0 lrwxrwxrwx  1 user user      40 Oct 10 23:40 .kube -> /home/user/.profilerz.d/personal/kubectl
-   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .ssh -> /home/user/.profilerz.d/personal/ssh
+.aws -> /home/user/.profilerz.d/personal/aws
+.kube -> /home/user/.profilerz.d/personal/kubectl
+.ssh -> /home/user/.profilerz.d/personal/ssh
 
    ```
