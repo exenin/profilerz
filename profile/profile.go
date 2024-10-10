@@ -79,5 +79,45 @@ func SetActiveProfile(profileName string) error {
 		}
 	}
 
+	// Set ssh key permissions
+	if err := SetSshKeyPermissions(); err != nil {
+		return fmt.Errorf("failed to set ssh key permissions: %v", err)
+	}
+
+	return nil
+}
+
+func SetSshKeyPermissions() error {
+	defaultProfile := "default"
+	sshFolder := GetProfilePath(defaultProfile, "ssh")
+	err := os.Chmod(sshFolder, 0700)
+	if err != nil {
+		return fmt.Errorf("failed to set ssh folder permission to 700: %v", err)
+	}
+
+	// Set ssh private key files to 600
+	privateKeyFiles, err := filepath.Glob(filepath.Join(sshFolder, "*"))
+	if err != nil {
+		return fmt.Errorf("failed to list ssh private key files: %v", err)
+	}
+	for _, f := range privateKeyFiles {
+		err = os.Chmod(f, 0600)
+		if err != nil {
+			return fmt.Errorf("failed to set ssh private key file permission to 600: %v", err)
+		}
+	}
+
+	// Set ssh public key files to 640
+	publicKeyFiles, err := filepath.Glob(filepath.Join(sshFolder, "*.pub"))
+	if err != nil {
+		return fmt.Errorf("failed to list ssh public key files: %v", err)
+	}
+	for _, f := range publicKeyFiles {
+		err = os.Chmod(f, 0640)
+		if err != nil {
+			return fmt.Errorf("failed to set ssh public key file permission to 640: %v", err)
+		}
+	}
+
 	return nil
 }

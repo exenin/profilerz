@@ -6,5 +6,5 @@ var DefaultConfigs = map[string]string{
 	"kubectl":      "~/.kube",
 	"digitalocean": "~/.config/doctl",
 	"ssh":          "~/.ssh",
-	"git":          "~/.gitconfig",
+	"git":          "~/.config/git",
 }

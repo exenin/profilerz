@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"profilerz/config"
 	"profilerz/profile"
@@ -26,6 +27,7 @@ var initCmd = &cobra.Command{
 		}
 
 		// Copy existing default configs (AWS, kubectl, etc.) to default profile
+		ifSuccess := false
 		for name, configPath := range config.DefaultConfigs {
 			src := util.ExpandPath(configPath)
 			dst := profile.GetProfilePath(defaultProfile, name)
@@ -40,6 +42,25 @@ var initCmd = &cobra.Command{
 				}
 			} else {
 				fmt.Printf("Copied %s config to default profile\n", name)
+				ifSuccess = true
+			}
+		}
+
+		if ifSuccess {
+			for name, configPath := range config.DefaultConfigs {
+				src := util.ExpandPath(configPath)
+				dst := profile.GetProfilePath(defaultProfile, name)
+				err := os.RemoveAll(src)
+				if err != nil {
+					fmt.Printf("Failed to remove original %s config: %v\n", name, err)
+				} else {
+					err = os.Symlink(dst, src)
+					if err != nil {
+						fmt.Printf("Failed to set symlink for original %s config: %v\n", name, err)
+					} else {
+						fmt.Printf("Set symlink for original %s config to default profile\n", name)
+					}
+				}
 			}
 		}
 
