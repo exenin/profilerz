@@ -3,7 +3,7 @@
 A tool for managing config profiles at org levels, etc.
 
 ```bash
- jdvh@whitewolf  ~  profilerz 
+ ~  profilerz 
 Profile manager for config directories (AWS, kubectl, DigitalOcean, etc.)
 
 Usage:
@@ -19,7 +19,7 @@ Flags:
   -h, --help   help for profilerz
 
 Use "profilerz [command] --help" for more information about a command.
- jdvh@whitewolf  ~  profilerz profile -h
+ ~  profilerz profile -h
 Manage profiles (add, set, list, delete)
 
 Usage:
@@ -69,9 +69,9 @@ cbas/      default/     personal/
 
 
 $ ls -als ~ | grep $HOME/.profilerz.d
-   0 lrwxrwxrwx  1 jdvh jdvh      32 Oct 10 23:36 .aws -> /home/jdvh/.profilerz.d/cbas/aws
-   0 lrwxrwxrwx  1 jdvh jdvh      36 Oct 10 23:36 .kube -> /home/jdvh/.profilerz.d/cbas/kubectl
-   0 lrwxrwxrwx  1 jdvh jdvh      32 Oct 10 23:36 .ssh -> /home/jdvh/.profilerz.d/cbas/ssh
+   0 lrwxrwxrwx  1 user user      32 Oct 10 23:36 .aws -> /home/user/.profilerz.d/cbas/aws
+   0 lrwxrwxrwx  1 user user      36 Oct 10 23:36 .kube -> /home/user/.profilerz.d/cbas/kubectl
+   0 lrwxrwxrwx  1 user user      32 Oct 10 23:36 .ssh -> /home/user/.profilerz.d/cbas/ssh
 
 
 
@@ -81,9 +81,9 @@ Profile 'personal' is now active.
 
 
 $ ls -als ~ | grep $HOME/.profilerz.d
-   0 lrwxrwxrwx  1 jdvh jdvh      36 Oct 10 23:40 .aws -> /home/jdvh/.profilerz.d/personal/aws
-   0 lrwxrwxrwx  1 jdvh jdvh      36 Oct 10 23:40 .gitconfig -> /home/jdvh/.profilerz.d/personal/git
-   0 lrwxrwxrwx  1 jdvh jdvh      40 Oct 10 23:40 .kube -> /home/jdvh/.profilerz.d/personal/kubectl
-   0 lrwxrwxrwx  1 jdvh jdvh      36 Oct 10 23:40 .ssh -> /home/jdvh/.profilerz.d/personal/ssh
+   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .aws -> /home/user/.profilerz.d/personal/aws
+   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .gitconfig -> /home/user/.profilerz.d/personal/git
+   0 lrwxrwxrwx  1 user user      40 Oct 10 23:40 .kube -> /home/user/.profilerz.d/personal/kubectl
+   0 lrwxrwxrwx  1 user user      36 Oct 10 23:40 .ssh -> /home/user/.profilerz.d/personal/ssh
 
    ```
