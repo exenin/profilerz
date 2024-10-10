@@ -59,7 +59,7 @@ tidy:
 .PHONY: install
 install:
 	@echo "Installing $(APP_NAME)..."
-	go install ./cmd
+	go install  
 
 # Uninstall the binary
 .PHONY: uninstall

@@ -80,16 +80,17 @@ func SetActiveProfile(profileName string) error {
 	}
 
 	// Set ssh key permissions
-	if err := SetSshKeyPermissions(); err != nil {
+	if err := SetSshKeyPermissions(profileName); err != nil {
 		return fmt.Errorf("failed to set ssh key permissions: %v", err)
 	}
 
 	return nil
 }
 
-func SetSshKeyPermissions() error {
-	defaultProfile := "default"
-	sshFolder := GetProfilePath(defaultProfile, "ssh")
+func SetSshKeyPermissions(profileName string) error {
+	println("Setting ssh key permissions...")
+
+	sshFolder := GetProfilePath(profileName, "ssh")
 	err := os.Chmod(sshFolder, 0700)
 	if err != nil {
 		return fmt.Errorf("failed to set ssh folder permission to 700: %v", err)
