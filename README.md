@@ -69,9 +69,9 @@ cbas/      default/     personal/
 
 
 $ ls -als ~ | grep $HOME/.profilerz.d
-   0 lrwxrwxrwx  1 user user      32 Oct 10 23:36 .aws -> /home/user/.profilerz.d/cbas/aws
-   0 lrwxrwxrwx  1 user user      36 Oct 10 23:36 .kube -> /home/user/.profilerz.d/cbas/kubectl
-   0 lrwxrwxrwx  1 user user      32 Oct 10 23:36 .ssh -> /home/user/.profilerz.d/cbas/ssh
+.aws -> /home/user/.profilerz.d/cbas/aws
+.kube -> /home/user/.profilerz.d/cbas/kubectl
+.ssh -> /home/user/.profilerz.d/cbas/ssh
 
 
 
