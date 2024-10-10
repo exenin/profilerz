@@ -2,10 +2,10 @@ package util
 
 import (
 	"io"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
-	"io/ioutil"
 )
 
 func ExpandPath(path string) string {
@@ -62,4 +62,3 @@ func CopyFile(src, dst string) error {
 	}
 	return out.Close()
 }
-

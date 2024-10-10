@@ -5,11 +5,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/exenin/profilerz/util"
+	"profilerz/config"
+	"profilerz/util"
 )
 
-const baseDir = "~/profilerz.d"
-const activeProfileDir = "~/.active_profile"
+const baseDir = "~/.profilerz.d"
 
 func GetProfilePath(profileName, configType string) string {
 	return filepath.Join(util.ExpandPath(baseDir), profileName, configType)
@@ -20,7 +20,30 @@ func AddProfile(profileName string) error {
 	if _, err := os.Stat(profilePath); !os.IsNotExist(err) {
 		return fmt.Errorf("profile '%s' already exists", profileName)
 	}
+
+	// Create the default config directories
+	// for name, configPath := range config.DefaultConfigs {
+	for name := range config.DefaultConfigs {
+		path := filepath.Join(profilePath, name)
+		if err := os.MkdirAll(path, os.ModePerm); err != nil {
+			return fmt.Errorf("failed to create default config directory %s: %v", path, err)
+		}
+	}
+
 	return os.MkdirAll(profilePath, os.ModePerm)
+}
+func DeleteProfile(profileName string) error {
+	profilePath := filepath.Join(util.ExpandPath(baseDir), profileName)
+	if _, err := os.Stat(profilePath); os.IsNotExist(err) {
+		return fmt.Errorf("profile '%s' does not exist", profileName)
+	}
+
+	err := os.RemoveAll(profilePath)
+	if err != nil {
+		return fmt.Errorf("failed to delete profile %s: %v", profileName, err)
+	}
+
+	return nil
 }
 
 func ListProfiles() ([]string, error) {
@@ -44,15 +67,16 @@ func SetActiveProfile(profileName string) error {
 		return fmt.Errorf("profile '%s' does not exist", profileName)
 	}
 
-	// Clear current active profile directory
-	if err := os.RemoveAll(util.ExpandPath(activeProfileDir)); err != nil {
-		return fmt.Errorf("failed to clear active profile: %v", err)
-	}
-
-	// Copy profile contents to active profile
-	err := util.CopyDir(profilePath, util.ExpandPath(activeProfileDir))
-	if err != nil {
-		return fmt.Errorf("failed to activate profile: %v", err)
+	// Symlink active profile to their original place
+	for name, configPath := range config.DefaultConfigs {
+		src := filepath.Join(profilePath, name)
+		dst := util.ExpandPath(configPath)
+		if err := os.Remove(dst); err != nil && !os.IsNotExist(err) {
+			return fmt.Errorf("failed to remove existing file %s: %v", dst, err)
+		}
+		if err := os.Symlink(src, dst); err != nil {
+			return fmt.Errorf("failed to symlink %s to %s: %v", src, dst, err)
+		}
 	}
 
 	return nil

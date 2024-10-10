@@ -3,7 +3,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/exenin/profilerz/profile"
+	"profilerz/profile"
+
 	"github.com/spf13/cobra"
 )
 
@@ -23,6 +24,21 @@ var addProfileCmd = &cobra.Command{
 			fmt.Printf("Error adding profile: %v\n", err)
 		} else {
 			fmt.Printf("Profile '%s' created.\n", profileName)
+		}
+	},
+}
+
+var deleteProfileCmd = &cobra.Command{
+	Use:   "delete [profile name]",
+	Short: "Delete a profile",
+	Args:  cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		profileName := args[0]
+		err := profile.DeleteProfile(profileName)
+		if err != nil {
+			fmt.Printf("Error deleting profile: %v\n", err)
+		} else {
+			fmt.Printf("Profile '%s' deleted.\n", profileName)
 		}
 	},
 }
@@ -58,5 +74,5 @@ var setProfileCmd = &cobra.Command{
 }
 
 func init() {
-	profileCmd.AddCommand(addProfileCmd, listProfilesCmd, setProfileCmd)
+	profileCmd.AddCommand(addProfileCmd, listProfilesCmd, setProfileCmd, deleteProfileCmd)
 }

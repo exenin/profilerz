@@ -3,9 +3,10 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/exenin/profilerz/config"
-	"github.com/exenin/profilerz/profile"
-	"github.com/exenin/profilerz/util"
+	"profilerz/config"
+	"profilerz/profile"
+	"profilerz/util"
+
 	"github.com/spf13/cobra"
 )
 
@@ -30,7 +31,13 @@ var initCmd = &cobra.Command{
 			dst := profile.GetProfilePath(defaultProfile, name)
 			err := util.CopyDir(src, dst)
 			if err != nil {
-				fmt.Printf("Failed to copy %s config: %v\n", name, err)
+				// Try to copy it as a file
+				err = util.CopyFile(src, dst)
+				if err != nil {
+					fmt.Printf("Failed to copy %s config: %v\n", name, err)
+				} else {
+					fmt.Printf("Copied %s config to default profile\n", name)
+				}
 			} else {
 				fmt.Printf("Copied %s config to default profile\n", name)
 			}

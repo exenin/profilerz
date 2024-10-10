@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	_ "github.com/exenin/profilerz/cmd/init"
-	_ "github.com/exenin/profilerz/cmd/profile"
 	"github.com/spf13/cobra"
 )
 
