@@ -14,7 +14,7 @@ $ make build install
 Building profilerz...
 go build -o profilerz ./cmd
 Installing profilerz...
-go install ./cmd
+go install 
 ```
 
 Initialize - and copy current configs to "default profile 
@@ -29,7 +29,7 @@ $ profilerz profile add personal
 Profile 'personal' created.
 
 $ ls -las ~/.profilerz.d/
-btrdsn/    cbas/      default/   naveo/     personal/
+cbas/      default/     personal/
 
 
 
